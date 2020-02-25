@@ -1,3 +1,5 @@
+from itertools import islice
+
 import pyspark
 
 reviewTablePath = "./yelp_top_reviewers_with_reviews.csv"
@@ -25,10 +27,13 @@ def rdd_task1():
 # TASK 2 - reviewTable
 def rdd_task2():
     review_file = create_rdd(reviewTablePath)
+    review_file = review_file.mapPartitionsWithIndex(lambda idx, it: islice(it, 1, None) if idx == 0 else it)
 
     # a)
-    review_users = review_file.map(lambda line: line.split(","))
+    # review_user_id = review_file.map(lambda line: line.split()[1])
+    # print("Number of distinct users: ", review_user_id.distinct().count())
 
-    print(review_users.count())
+    # b)
+    reviews = review_file.map(lambda line: line.split()[2])
+    reviews_length = reviews.map(lambda review: len(review))
 
-rdd_task2()
