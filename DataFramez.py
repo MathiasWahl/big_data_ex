@@ -36,18 +36,11 @@ def sql_queries(display=False):
     sql_query_df.createOrReplaceTempView("results")
 
     # c)
-
-    ouff = spark.sql("SELECT COUNT(review_id) as number_of_reviews, user_id FROM review GROUP BY user_id ORDER BY number_of_reviews DESC").limit(20)
-    ouff.show()
-
-    # Find the number of reviews for each user in the review table for
-    # top 20 users with the most number of reviews sorted
-    # descendingly
-
-
+    top_20_reviewers_df = spark.sql("SELECT COUNT(review_id) as number_of_reviews, user_id FROM review GROUP BY user_id ORDER BY number_of_reviews DESC").limit(20)
 
     if display:
         sql_query_df.show()
+        top_20_reviewers_df.show()
 
 
 sql_queries(False)
