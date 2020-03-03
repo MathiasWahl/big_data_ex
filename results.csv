@@ -1,0 +1,20 @@
+TASK 1
+1,"Number of rows:
+ reviewTable: 883738
+ businessTable: 192610
+ friendshipTable: 1938473"
+TASK 2
+2a,Number of distinct users: 4521
+2b,Average length of reviews: 857.1214841066969
+2c,"Business ID and number of reviews for 10 most reviewed:[('FaHADZARwnY4yvlvpnsfGA', 411), ('""4JNXUYY8wbaaDmk3BPzlWw""', 384), ('JmI9nslLD7KZqRr__Bg6NQ', 371), ('RESDUcs7fIiihp38-d6_6g', 329), ('""7sPNbCx7vGAaH7SbNPZ6oA""', 323), ('iCQpiavjjPzJ5_3gPD5Ebg', 322), ('K7lWdNUhCbcnEvI0NhGewg', 306), ('A5Rkh7UymKm0_Rxm9K2PJw', 301), ('""9a3DrZvpYxVs3k_qwlCNSw""', 293), ('""5LNZ67Yw9RD6nf4_UhXOjw""', 287)]"
+2d,"Reviews per year:[(2004, 2), (2005, 215), (2006, 915), (2007, 6253), (2008, 17262), (2009, 24880), (2010, 49406), (2011, 73947), (2012, 83385), (2013, 98336), (2014, 100530), (2015, 109805), (2016, 114744), (2017, 114140), (2018, 89917)]"
+2e,"Review with ID: ""0--VCf3c2LSGJdqDQzPt8Q"" is the last review, created 2018-03-23 22:52:05"
+2e,"Review with ID: zzznG5ZfmNI5cuphVxYFwA is the first review, created 2012-04-29 16:40:15"
+2f,The pearson correlation of number of reviews and avg review length is 0.1259796746842049
+TASK 4
+4a,"Top 10 nodes out-degrees with count: [('ZIOCmdFaMIF56FR-nWr_2A', 9564), ('F_5_UNX-wrAFCXuAkBZRDw', 8586), ('djxnI8Ux8ZYQJhiOQkrRhA', 8381), ('YttDgOC9AlM4HcAlDsbB2A', 6758), ('NfU0zDaTMEQ4-X9dbQWd9A', 6506), ('dIIKEfOgo0KqUfGQvGikPg', 6187), ('ACUVZ4SiN0gni7dzVDm9EQ', 6065), ('""8DEyKVyplnOcSKx39vatbg""', 6026), ('w-w-k-QXosIKQ8HQVwU6IQ', 5987), ('Thc2zV-K-KLcvJn3fMPdqQ', 5821)]"
+4a,"Top 10 nodes in-degrees with count: [('""8DEyKVyplnOcSKx39vatbg""', 4919), ('ZIOCmdFaMIF56FR-nWr_2A', 4597), ('YttDgOC9AlM4HcAlDsbB2A', 4222), ('djxnI8Ux8ZYQJhiOQkrRhA', 4211), ('F_5_UNX-wrAFCXuAkBZRDw', 3943), ('dIIKEfOgo0KqUfGQvGikPg', 3651), ('GGTF7hnQi6D5W77_qiKlqg', 3609), ('NfU0zDaTMEQ4-X9dbQWd9A', 3557), ('""3gRfkaVcEWri-Ju7OQX7uQ""', 3396), ('NhgU7RhuYYFmpkb1jlYJ6Q', 3330)]"
+4b,Average out-degrees per node: 12.060049149220767
+4b,Average in-degrees per node: 3.8641613542401734
+4b,"Median for out-degrees: ('raUk8fAhO9nVI81qoWQjEg', 1)"
+4b,"Median for in-degrees: ('FhMvlejMbb7Y87qM7-TpXQ', 1)"
