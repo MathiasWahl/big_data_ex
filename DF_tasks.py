@@ -1,3 +1,5 @@
+from pyspark.sql.types import StructType, IntegerType, StringType, FloatType, TimestampType, DoubleType
+from pyspark.sql.functions import unbase64, from_unixtime
 from pyspark.sql import SparkSession
 
 spark = SparkSession \
@@ -10,9 +12,46 @@ spark = SparkSession \
 def generate_frames(display=False):
 
     # Read csv files and generate frames. Because InferSchema is set to true, the format of the values will be kept.
-    business_frame = spark.read.format('csv').options(inferSchema='true', header='true', delimiter="	").load('yelp_businesses.csv')
-    top_review_frame = spark.read.format('csv').options(header='true', inferSchema='true', delimiter="	").load('yelp_top_reviewers_with_reviews.csv')
-    friendship_graph_frame = spark.read.format('csv').options(header='true', inferSchema='true').load('yelp_top_users_friendship_graph.csv')
+    business_schema = StructType()\
+        .add("business_id", StringType(), True)\
+        .add("name", StringType(), True)\
+        .add("address", StringType(), True)\
+        .add("city", StringType(), True)\
+        .add("state", StringType(), True)\
+        .add("postal_code", StringType(), True)\
+        .add("latitude", FloatType(), True)\
+        .add("longitude", FloatType(), True)\
+        .add("stars", FloatType(), True)\
+        .add("review_count", IntegerType(), True)\
+        .add("categories", StringType(), True)
+
+    business_frame = spark.read.format('csv')\
+        .options(header='true', delimiter="	")\
+        .schema(business_schema)\
+        .load('yelp_businesses.csv')
+
+    top_review_schema = StructType() \
+        .add("review_id", StringType()) \
+        .add("user_id", StringType()) \
+        .add("business_id", StringType()) \
+        .add("review_text", StringType()) \
+        .add("review_date", StringType()) # Should be datetype, but not possible
+
+    top_review_frame = spark.read.format('csv')\
+        .options(header='true', delimiter="	") \
+        .schema(top_review_schema) \
+        .load('yelp_top_reviewers_with_reviews.csv')
+
+    top_review_frame2 = top_review_frame\
+        .withColumn('review_text', unbase64(top_review_frame.review_text).cast(StringType()))\
+        .withColumn('review_date', from_unixtime(top_review_frame.review_date).cast(TimestampType()))
+
+    friendship_graph_frame = spark.read.format('csv')\
+        .options(header='true', inferSchema='true')\
+        .load('yelp_top_users_friendship_graph.csv')
+
+    output = ['5a', str(business_frame), str(top_review_frame2), str(friendship_graph_frame)]
+    print(output)
 
     # Display frames (for testing)
     if display:
@@ -20,7 +59,7 @@ def generate_frames(display=False):
         top_review_frame.show()
         friendship_graph_frame.show()
 
-    return business_frame, top_review_frame, friendship_graph_frame
+    return business_frame, top_review_frame2, friendship_graph_frame
 
 
 # Task 6
