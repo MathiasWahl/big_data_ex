@@ -7,7 +7,7 @@ friendshipGraphPath = "./yelp_top_users_friendship_graph.csv"
 output_file_name = "results.csv"
 
 
-conf = pyspark.SparkConf().setAppName("Load Data").setMaster("local");
+conf = pyspark.SparkConf().setAppName("Load Data").setMaster("local")
 sc = pyspark.SparkContext(conf=conf)
 
 ######## RDD Tasks ##########

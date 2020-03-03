@@ -4,7 +4,7 @@ import csv
 
 # TASK 4 - friendshipGraph
 
-conf = SparkConf().setAppName("Friendship").setMaster("local");
+conf = SparkConf().setAppName("Friendship").setMaster("local")
 sc = SparkContext(conf=conf)
 folder_name = "./"
 input_file_name = "yelp_top_users_friendship_graph.csv"

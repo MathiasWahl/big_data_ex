@@ -7,7 +7,7 @@ from pyspark.mllib.stat import Statistics
 
 # TASK 2 - reviewTable
 
-conf = SparkConf().setAppName("Reviews").setMaster("local");
+conf = SparkConf().setAppName("Reviews").setMaster("local")
 sc = SparkContext(conf=conf)
 folder_name = "./"
 input_file_name = "yelp_top_reviewers_with_reviews.csv"
@@ -46,10 +46,16 @@ reviews_per_year = review_lines_rdd.map(lambda fields: (unix_to_datetime(fields[
 results.append(["2d", "Reviews per year: " + str(reviews_per_year.collect())])
 
 # Time and date for first and last review
-last_review = review_lines_rdd.map(lambda fields: (fields[0], float(fields[4]))).reduce(lambda x, y: min(x, y))
+def min_date(x, y):
+    return y if x[1] > y[1] else x
+
+def max_date(x, y):
+    return y if y[1] > x[1] else x
+
+last_review = review_lines_rdd.map(lambda fields: (fields[0], float(fields[4]))).reduce(lambda x, y: min_date(x,y))
 results.append(["2e", "Review with ID: " + str(last_review[0]) + " is the last review, created " + str(unix_to_datetime(last_review[1]))])
 
-first_review = review_lines_rdd.map(lambda fields: (fields[0], float(fields[4]))).reduce(lambda x, y: max(x, y))
+first_review = review_lines_rdd.map(lambda fields: (fields[0], float(fields[4]))).reduce(lambda x, y: max_date(x,y))
 results.append(["2e", "Review with ID: " + str(first_review[0]) + " is the first review, created " + str(unix_to_datetime(first_review[1]))])
 
 # PCC between number of reviews and avg number of chrs
