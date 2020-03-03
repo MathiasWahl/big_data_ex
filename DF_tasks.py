@@ -11,7 +11,7 @@ spark = SparkSession \
 # Task 5a
 def generate_frames(display=False):
 
-    # Read csv files and generate frames. Because InferSchema is set to true, the format of the values will be kept.
+    # Read csv files, specify column types and generate frames
     business_schema = StructType()\
         .add("business_id", StringType(), True)\
         .add("name", StringType(), True)\
@@ -50,7 +50,7 @@ def generate_frames(display=False):
         .options(header='true', inferSchema='true')\
         .load('yelp_top_users_friendship_graph.csv')
 
-    output = ['5a', str(business_frame), str(top_review_frame2), str(friendship_graph_frame)]
+    output = ['5a', "Dataframes, their column names and types: ", str(business_frame) + str(top_review_frame2) + str(friendship_graph_frame)]
     print(output)
 
     # Display frames (for testing)
