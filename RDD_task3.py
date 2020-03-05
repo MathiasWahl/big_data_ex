@@ -1,6 +1,5 @@
 import csv
 
-from itertools import islice
 from pyspark import SparkConf, SparkContext
 
 # Task 3 - Business Table
@@ -14,9 +13,10 @@ output_file_name = "results.csv"
 results = [["TASK 3"]]
 
 textFile = sc.textFile(folder_name + input_file_name)
+header = textFile.first()
 business_lines_rdd = textFile\
-    .mapPartitionsWithIndex(lambda index, line: islice(line, 1, None) if index == 0 else line)\
-    .map(lambda line: line.split('\t'))
+    .filter(lambda row: row != header)\
+    .map(lambda row: row.split('\t'))
 
 # What is the average rating for businesses in each city?
 business_average_rating = business_lines_rdd\

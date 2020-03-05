@@ -1,4 +1,3 @@
-from itertools import islice
 import datetime
 import csv
 import base64
@@ -14,9 +13,10 @@ input_file_name = "yelp_top_reviewers_with_reviews.csv"
 output_file_name = "results.csv"
 
 textFile = sc.textFile(folder_name + input_file_name)
+header = textFile.first()
 review_lines_rdd = textFile\
-    .mapPartitionsWithIndex(lambda index, line: islice(line, 1, None) if index == 0 else line)\
-    .map(lambda line: line.split())
+    .filter(lambda row: row != header)\
+    .map(lambda row: row.split())
 
 results = [["TASK 2"]]
 

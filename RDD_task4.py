@@ -1,4 +1,3 @@
-from itertools import islice
 from pyspark import SparkConf, SparkContext
 import csv
 
@@ -13,9 +12,10 @@ output_file_name = "results.csv"
 results = [["TASK 4"]]
 
 textFile = sc.textFile(folder_name + input_file_name)
+header = textFile.first()
 friendship_lines_rdd = textFile\
-    .mapPartitionsWithIndex(lambda index, line: islice(line, 1, None) if index == 0 else line)\
-    .map(lambda line: line.split(","))
+    .filter(lambda row: row != header)\
+    .map(lambda row: row.split(","))
 
 # Top 10 nodes with most degrees out (src-nodes)
 node_out_degrees_sorted = friendship_lines_rdd.map(lambda fields: (fields[0], 1)).reduceByKey(lambda x,y: x+y).sortBy(lambda degree_tuple: degree_tuple[1], False)
