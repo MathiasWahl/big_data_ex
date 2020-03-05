@@ -24,7 +24,8 @@ business_average_rating = business_lines_rdd\
     .reduceByKey(lambda x,y: (int(x[0])+int(y[0]), x[1]+y[1]))\
     .map(lambda tuple: (tuple[0], int(tuple[1][0])/int(tuple[1][1])))
 
-results.append(['3a', 'Average rating by city: ' + str(business_average_rating.collect())])
+# results.append(['3a', 'Average rating by city: ' + str(business_average_rating.collect())])
+results.append(['3a', 'Average rating by city: ' + str(business_average_rating.take(20))])
 
 # What are the top 10 most frequent categories in the data?
 business_top_categories = business_lines_rdd\
@@ -41,7 +42,8 @@ business_centroid = business_lines_rdd\
     .reduceByKey(lambda x, y: (float(x[0])+float(y[0]), float(x[1])+float(y[1]), x[2]+y[2]))\
     .map(lambda tuple: (tuple[0], (float(tuple[1][0])/tuple[1][2], float(tuple[1][1])/tuple[1][2])))
 
-results.append(['3c', 'Geographical Centroid for each postal code: ' + str(business_centroid.collect())])
+# results.append(['3c', 'Geographical Centroid for each postal code: ' + str(business_centroid.collect())])
+results.append(['3c', 'Geographical Centroid for each postal code: ' + str(business_centroid.take(20))])
 
 with open(output_file_name, 'a') as file:
     writer = csv.writer(file)
