@@ -9,7 +9,7 @@ spark = SparkSession \
 
 
 # Task 5a
-def generate_frames(display=False):
+def generate_frames(display_loaded=False, outputs=False):
 
     # Read csv files, specify column types and generate frames
     business_schema = StructType()\
@@ -51,11 +51,15 @@ def generate_frames(display=False):
         .options(header='true', inferSchema='true')\
         .load('yelp_top_users_friendship_graph.csv')
 
-    output = ['5a', "Dataframes, their column names and types: ", str(business_frame) + str(top_review_frame) + str(friendship_graph_frame)]
-    print(output)
+    if outputs:
+        to_console="5a:\nData frame objects, showing the columns and types: \n"
+        to_console += "Yelp Businesses: " +  str(business_frame) + "\n"
+        to_console += "Yelp Top Reviewers: " +  str(top_review_frame) + "\n"
+        to_console += "Yelp Top Users Friendship Graph: " +  str(friendship_graph_frame) + "\n"
+        print(to_console)
 
     # Display frames (for testing)
-    if display:
+    if display_loaded:
         business_frame.show()
         top_review_frame.show()
         friendship_graph_frame.show()
@@ -64,10 +68,10 @@ def generate_frames(display=False):
 
 
 # Task 6
-def do_sql_queries(display=False):
+def do_sql_queries(display_loaded=False, display_queried=False, outputs=False):
 
     # Generate dataframes
-    business_frame, top_review_frame, friendship_graph_frame = generate_frames()
+    business_frame, top_review_frame, friendship_graph_frame = generate_frames(display_loaded, outputs)
 
     # Register the dataframes as SQL temporary views
     business_frame.createOrReplaceTempView("business")
@@ -80,10 +84,28 @@ def do_sql_queries(display=False):
     # Subtask c)
     top_20_reviewers_df = spark.sql("SELECT COUNT(review_id) as number_of_reviews, user_id FROM review GROUP BY user_id ORDER BY number_of_reviews DESC").limit(20)
 
-    if display:
+    if outputs:
+        print("Task 6a:")
+        sql_query_df.show()
+        print("Task 6b is hard to print. See source code.\nTask 6c:")
+        # top_20_reviewers_df.show()
+
+
+    if display_queried:
         sql_query_df.show()
         top_20_reviewers_df.show()
 
 
+# FOR RUNNING:
+
+# display the first 20 rows of dataframes loaded from the csv datasets:
+display_loaded_frames = False
+
+# display the results from the SQL queries in task 6:
+display_queried_frames = False
+
+# Create output for delivery:
+output_tasks = True
+
 # Run all the code (do_sql_queries triggers generate_frames)
-do_sql_queries()
+do_sql_queries(display_loaded=display_loaded_frames, display_queried=display_queried_frames, outputs=output_tasks)
