@@ -35,14 +35,15 @@ def generate_frames(display=False):
         .add("user_id", StringType()) \
         .add("business_id", StringType()) \
         .add("review_text", StringType()) \
-        .add("review_date", StringType()) # Should be datetype, but not possible
+        .add("review_date", StringType()) # Will be converted to TimestampType
 
     top_review_frame = spark.read.format('csv')\
         .options(header='true', delimiter="	") \
         .schema(top_review_schema) \
         .load('yelp_top_reviewers_with_reviews.csv')
 
-    top_review_frame2 = top_review_frame\
+    # Decode review_text, convert review_date to TimestampType
+    top_review_frame = top_review_frame\
         .withColumn('review_text', unbase64(top_review_frame.review_text).cast(StringType()))\
         .withColumn('review_date', from_unixtime(top_review_frame.review_date).cast(TimestampType()))
 
@@ -50,7 +51,7 @@ def generate_frames(display=False):
         .options(header='true', inferSchema='true')\
         .load('yelp_top_users_friendship_graph.csv')
 
-    output = ['5a', "Dataframes, their column names and types: ", str(business_frame) + str(top_review_frame2) + str(friendship_graph_frame)]
+    output = ['5a', "Dataframes, their column names and types: ", str(business_frame) + str(top_review_frame) + str(friendship_graph_frame)]
     print(output)
 
     # Display frames (for testing)
@@ -59,7 +60,7 @@ def generate_frames(display=False):
         top_review_frame.show()
         friendship_graph_frame.show()
 
-    return business_frame, top_review_frame2, friendship_graph_frame
+    return business_frame, top_review_frame, friendship_graph_frame
 
 
 # Task 6
