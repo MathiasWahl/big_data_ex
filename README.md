@@ -1,8 +1,3 @@
-# big_data_ex1
-Exercise in Big Data course
-
-SONDRE, ANDERS OG MATHIAS GLIGGÅ
-
 # TDT 4305 - Project 1
 ## By Sondre Grav Skjåstad, Mathias Wahl and Anders Granås
 ### Setup
