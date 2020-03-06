@@ -10,7 +10,7 @@ TASK 2
 2d,"Reviews per year: [(2004, 2), (2005, 215), (2006, 915), (2007, 6253), (2008, 17262), (2009, 24880), (2010, 49406), (2011, 73947), (2012, 83385), (2013, 98336), (2014, 100530), (2015, 109805), (2016, 114744), (2017, 114140), (2018, 89917)]"
 2e,"Review with ID: Ewiz_k_1BuZX_-2Q31yWGQ is the last review, created 2018-11-14 17:10:56"
 2e,"Review with ID: Ef1skKLKZ9izwBmreb_-qw is the first review, created 2004-12-19 19:47:24"
-2f,The pearson correlation of number of reviews and avg review length is 0.12597967468420518
+2f,The pearson correlation of number of reviews and avg review length is 0.12597967468420487
 TASK 3
 3a,"Average rating by city: [('Calgary', 3.1579627714581178), ('Richmond Hill', 2.9376218323586745), ('Huntersville', 3.4384), ('Gilbert', 3.616117850953206), ('Las Vegas', 3.479673135852911), ('Tempe', 3.475164835164835), ('Pittsburgh', 3.370671227020094), ('Charlotte', 3.3145441161005365), ('Toronto', 3.209457315138051), ('North Olmsted', 3.128787878787879), ('Henderson', 3.5464022894521667), ('Phoenix', 3.434455930938932), ('Sainte-Julie', 3.0), ('Canonsburg', 3.3006134969325154), ('Bay Village', 3.652173913043478), ('Streetsboro', 3.116788321167883), ('Scottsdale', 3.7268303722982914), ('East York', 3.1739130434782608), ('Brunswick', 3.1931818181818183), ('North York', 2.892116182572614)]"
 3b,"Top 10 most frequent categories: [('Restaurants', 59371), ('Shopping', 31878), ('Food', 29989), ('Home Services', 19729), ('Beauty & Spas', 19370), ('Health & Medical', 17171), ('Local Services', 13932), ('Automotive', 13202), ('Nightlife', 13095), ('Bars', 11341)]"
