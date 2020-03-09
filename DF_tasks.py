@@ -88,7 +88,7 @@ def do_sql_queries(display_loaded=False, display_queried=False, outputs=False):
         print("Task 6a:")
         sql_query_df.show()
         print("Task 6b is hard to print. See source code.\nTask 6c:")
-        # top_20_reviewers_df.show()
+        top_20_reviewers_df.show()
 
 
     if display_queried:
