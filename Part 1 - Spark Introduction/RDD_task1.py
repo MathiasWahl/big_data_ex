@@ -1,6 +1,7 @@
 import pyspark
 import csv
 
+folder_name = "./Part 1 - Spark Introduction/"
 reviewTablePath = "./yelp_top_reviewers_with_reviews.csv"
 businessTablePath = "./yelp_businesses.csv"
 friendshipGraphPath = "./yelp_top_users_friendship_graph.csv"
@@ -26,6 +27,6 @@ def rdd_task1():
 
 rdd_task1()
 
-with open(output_file_name, 'a') as file:
+with open(folder_name + output_file_name, 'a') as file:
     writer = csv.writer(file)
     writer.writerows(results)
