@@ -6,13 +6,13 @@ from pyspark import SparkConf, SparkContext
 
 conf = SparkConf().setAppName("Reviews").setMaster("local")
 sc = SparkContext(conf=conf)
-folder_name = "./"
-input_file_name = "yelp_businesses.csv"
+folder_name = "./Part 1 - Spark Introduction/"
+input_file_name = "./yelp_businesses.csv"
 output_file_name = "results.csv"
 
 results = [["TASK 3"]]
 
-textFile = sc.textFile(folder_name + input_file_name)
+textFile = sc.textFile(input_file_name)
 header = textFile.first()
 business_lines_rdd = textFile\
     .filter(lambda row: row != header)\
@@ -45,6 +45,6 @@ business_centroid = business_lines_rdd\
 # results.append(['3c', 'Geographical Centroid for each postal code: ' + str(business_centroid.collect())])
 results.append(['3c', 'Geographical Centroid for each postal code: ' + str(business_centroid.take(20))])
 
-with open(output_file_name, 'a') as file:
+with open(folder_name + output_file_name, 'a') as file:
     writer = csv.writer(file)
     writer.writerows(results)

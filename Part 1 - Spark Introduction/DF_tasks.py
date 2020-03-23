@@ -28,7 +28,7 @@ def generate_frames(display_loaded=False, outputs=False):
     business_frame = spark.read.format('csv')\
         .options(header='true', delimiter="	")\
         .schema(business_schema)\
-        .load('yelp_businesses.csv')
+        .load('./yelp_businesses.csv')
 
     top_review_schema = StructType() \
         .add("review_id", StringType()) \
@@ -40,7 +40,7 @@ def generate_frames(display_loaded=False, outputs=False):
     top_review_frame = spark.read.format('csv')\
         .options(header='true', delimiter="	") \
         .schema(top_review_schema) \
-        .load('yelp_top_reviewers_with_reviews.csv')
+        .load('./yelp_top_reviewers_with_reviews.csv')
 
     # Decode review_text, convert review_date to TimestampType
     top_review_frame = top_review_frame\
@@ -49,7 +49,7 @@ def generate_frames(display_loaded=False, outputs=False):
 
     friendship_graph_frame = spark.read.format('csv')\
         .options(header='true', inferSchema='true')\
-        .load('yelp_top_users_friendship_graph.csv')
+        .load('./yelp_top_users_friendship_graph.csv')
 
     if outputs:
         to_console="5a:\nData frame objects, showing the columns and types: \n"

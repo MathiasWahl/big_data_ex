@@ -8,11 +8,11 @@ from pyspark import SparkConf, SparkContext
 
 conf = SparkConf().setAppName("Reviews").setMaster("local")
 sc = SparkContext(conf=conf)
-folder_name = "./"
-input_file_name = "yelp_top_reviewers_with_reviews.csv"
+folder_name = "./Part 1 - Spark Introduction/"
+input_file_name = "./yelp_top_reviewers_with_reviews.csv"
 output_file_name = "results.csv"
 
-textFile = sc.textFile(folder_name + input_file_name)
+textFile = sc.textFile(input_file_name)
 header = textFile.first()
 review_lines_rdd = textFile\
     .filter(lambda row: row != header)\
@@ -98,6 +98,6 @@ pearson_correlation = covariance.value / (review_quantity_standard_deviation * r
 results.append(["2f", "The pearson correlation of number of reviews and avg review length is " + str(pearson_correlation)])
 
 
-with open(output_file_name, 'a') as file:
+with open(folder_name + output_file_name, 'a') as file:
     writer = csv.writer(file)
     writer.writerows(results)

@@ -5,13 +5,13 @@ import csv
 
 conf = SparkConf().setAppName("Friendship").setMaster("local")
 sc = SparkContext(conf=conf)
-folder_name = "./"
-input_file_name = "yelp_top_users_friendship_graph.csv"
+folder_name = "./Part 1 - Spark Introduction/"
+input_file_name = "./yelp_top_users_friendship_graph.csv"
 output_file_name = "results.csv"
 
 results = [["TASK 4"]]
 
-textFile = sc.textFile(folder_name + input_file_name)
+textFile = sc.textFile(input_file_name)
 header = textFile.first()
 friendship_lines_rdd = textFile\
     .filter(lambda row: row != header)\
@@ -39,6 +39,6 @@ results.append(["4b", "Median for out-degrees: " + str(out_median)])
 results.append(["4b", "Median for in-degrees: " + str(in_median)])
 
 
-with open(output_file_name, 'a') as file:
+with open(folder_name + output_file_name, 'a') as file:
     writer = csv.writer(file)
     writer.writerows(results)
