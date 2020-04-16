@@ -1,12 +1,12 @@
 from pyspark import SparkConf, SparkContext
 from base64 import b64decode
 
-reviewTablePath = "../yelp_top_reviewers_with_reviews.csv"
+review_table_path = "../yelp_top_reviewers_with_reviews.csv"
 
 conf = SparkConf().setAppName("Sentiment Analysis").setMaster("local")
 sc = SparkContext(conf=conf)
 
-textFile = sc.textFile(reviewTablePath)
+textFile = sc.textFile(review_table_path)
 header = textFile.first()
 review_lines_rdd = textFile\
     .filter(lambda row: row != header)\
@@ -49,7 +49,11 @@ review_business_polarity_rdd = review_business_rdd.join(review_with_polarity_sum
 
 sorted_businesses_on_review_score = review_business_polarity_rdd.map(lambda row: row[1])\
     .reduceByKey(lambda business1, business2: business1+business2)\
-    .sortBy(lambda businessTuple: businessTuple[1], False)
+    .sortBy(lambda business_tuple: business_tuple[1], False)
 
 k = 10
 print("Top %s rated business, with score: " % k, sorted_businesses_on_review_score.take(k))
+
+
+# Repartition RDD to avoid multiple files and save to textfile
+sorted_businesses_on_review_score.repartition(1).saveAsTextFile('results')
